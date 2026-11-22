@@ -23,4 +23,4 @@ export async function proxy(request: NextRequest) {
 }
 
 // 로그인 상태를 서버에서 읽는 화면에만 건다(가입·로그인 같은 정적 화면은 그대로 빠르게)
-export const config = { matcher: ['/', '/my/:path*', '/admin/:path*'] };
+export const config = { matcher: ['/', '/join', '/my/:path*', '/admin/:path*'] };

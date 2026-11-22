@@ -4,10 +4,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { authError } from '@/lib/korean-errors';
+import { safeNext, withNext } from '@/lib/next-url';
 
 function Login() {
   const router = useRouter();
-  const failed = useSearchParams().get('confirm') === 'fail';
+  const sp = useSearchParams(), failed = sp.get('confirm') === 'fail', next = safeNext(sp.get('next'));
   const sb = useMemo(() => supabaseBrowser(), []);
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -18,10 +19,10 @@ function Login() {
     e.preventDefault(); if (busy) return; setBusy(true); setErr(''); setUnconfirmed(false);
     const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password: pw });
     if (error) { setBusy(false); setErr(authError(error.message)); setUnconfirmed(/not confirmed/i.test(error.message)); return; }
-    router.replace('/my');   // 버튼은 '로그인 중'을 유지한 채 바로 이동(새로 고침 한 번을 뺐다)
+    router.replace(next);   // 버튼은 '로그인 중'을 유지한 채 바로 이동(새로 고침 한 번을 뺐다)
   }
   async function resend() {
-    const { error } = await sb.auth.resend({ type: 'signup', email: email.trim(), options: { emailRedirectTo: `${location.origin}/auth/confirm?next=/my` } });
+    const { error } = await sb.auth.resend({ type: 'signup', email: email.trim(), options: { emailRedirectTo: `${location.origin}/auth/confirm?next=${encodeURIComponent(next)}` } });
     setErr(error ? authError(error.message) : '인증 메일을 다시 보냈어요');
   }
   return (
@@ -34,10 +35,11 @@ function Login() {
         <label className="lab" htmlFor="pw">비밀번호</label>
         <input className="in" id="pw" type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} />
         {err && <p className="err" role="alert">{err}</p>}
+        {err && !unconfirmed && !failed && <p className="help">처음이신가요? <Link href={withNext('/join', next)}>1분 가입하고 1,000P 받기</Link></p>}
         {unconfirmed && <button className="sbtn" type="button" onClick={resend} style={{ marginTop: 8 }}>인증 메일 다시 받기</button>}
         <button className="btn" type="submit" disabled={busy || !email || !pw}>{busy ? '로그인 중…' : '로그인'}</button>
       </form>
-      <p className="foot">처음인가요? <Link href="/signup">회원가입</Link></p>
+      <p className="foot">처음인가요? <Link href={withNext('/join', next)}>회원가입</Link></p>
     </>
   );
 }

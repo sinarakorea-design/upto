@@ -1,15 +1,17 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { authError } from '@/lib/korean-errors';
+import { safeNext, withNext } from '@/lib/next-url';
 
 const NICK = /^[0-9A-Za-z가-힣_]{2,16}$/;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-export default function SignupPage() {
+function Signup() {
   const router = useRouter();
+  const next = safeNext(useSearchParams().get('next'));
   const sb = useMemo(() => supabaseBrowser(), []);
   const [email, setEmail] = useState('');
   const [nick, setNick] = useState('');
@@ -41,11 +43,11 @@ export default function SignupPage() {
     setBusy(true); setErr('');
     const { error } = await sb.auth.signUp({
       email: email.trim(), password: pw,
-      options: { emailRedirectTo: `${location.origin}/auth/confirm?next=/my`, data: { nickname: nick, marketing: mkt } },
+      options: { emailRedirectTo: `${location.origin}/auth/confirm?next=${encodeURIComponent(next)}`, data: { nickname: nick, marketing: mkt } },
     });
     setBusy(false);
     if (error) { setErr(authError(error.message)); return; }
-    router.push('/verify?email=' + encodeURIComponent(email.trim()));
+    router.push('/verify?email=' + encodeURIComponent(email.trim()) + '&next=' + encodeURIComponent(next));
   }
 
   return (
@@ -77,7 +79,8 @@ export default function SignupPage() {
         {err && <p className="err" role="alert">{err}</p>}
         <button className="btn" type="submit" disabled={!ready}>{busy ? '보내는 중' : '인증 메일 받기'}</button>
       </form>
-      <p className="foot">이미 회원인가요? <Link href="/login">로그인</Link></p>
+      <p className="foot">이미 회원인가요? <Link href={withNext('/login', next)}>로그인</Link></p>
     </>
   );
 }
+export default function SignupPage() { return <Suspense><Signup /></Suspense>; }
