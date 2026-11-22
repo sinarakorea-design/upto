@@ -8,8 +8,10 @@ const STATUS = { wait: ['승인 대기', ''], ok: ['승인 회원', 'ok'], block
 
 export default async function MyPage({ searchParams }: { searchParams: Promise<{ welcome?: string }> }) {
   const sb = await supabaseServer();
-  const { data: { user } } = await sb.auth.getUser();
-  if (!user) redirect('/login');
+  const { data } = await sb.auth.getClaims();   // 서명 검증만, 인증 서버 왕복 없음
+  const claims = data?.claims;
+  if (!claims?.sub) redirect('/login');
+  const user = { id: claims.sub, email: (claims.email as string) || '' };
   const [{ data: me }, { data: bal }] = await Promise.all([
     sb.from('profiles').select('nickname, status, role, created_at').eq('id', user.id).single(),
     sb.from('point_balance').select('balance').eq('user_id', user.id).maybeSingle(),

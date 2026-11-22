@@ -15,11 +15,10 @@ function Login() {
   const [unconfirmed, setUnconfirmed] = useState(false);
   const [busy, setBusy] = useState(false);
   async function submit(e: React.FormEvent) {
-    e.preventDefault(); setBusy(true); setErr(''); setUnconfirmed(false);
+    e.preventDefault(); if (busy) return; setBusy(true); setErr(''); setUnconfirmed(false);
     const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password: pw });
-    setBusy(false);
-    if (error) { setErr(authError(error.message)); setUnconfirmed(/not confirmed/i.test(error.message)); return; }
-    router.replace('/my'); router.refresh();
+    if (error) { setBusy(false); setErr(authError(error.message)); setUnconfirmed(/not confirmed/i.test(error.message)); return; }
+    router.replace('/my');   // 버튼은 '로그인 중'을 유지한 채 바로 이동(새로 고침 한 번을 뺐다)
   }
   async function resend() {
     const { error } = await sb.auth.resend({ type: 'signup', email: email.trim(), options: { emailRedirectTo: `${location.origin}/auth/confirm?next=/my` } });
@@ -36,7 +35,7 @@ function Login() {
         <input className="in" id="pw" type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} />
         {err && <p className="err" role="alert">{err}</p>}
         {unconfirmed && <button className="sbtn" type="button" onClick={resend} style={{ marginTop: 8 }}>인증 메일 다시 받기</button>}
-        <button className="btn" type="submit" disabled={busy || !email || !pw}>{busy ? '확인 중' : '로그인'}</button>
+        <button className="btn" type="submit" disabled={busy || !email || !pw}>{busy ? '로그인 중…' : '로그인'}</button>
       </form>
       <p className="foot">처음인가요? <Link href="/signup">회원가입</Link></p>
     </>

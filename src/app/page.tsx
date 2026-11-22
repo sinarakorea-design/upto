@@ -11,9 +11,9 @@ export default async function Home() {
     const sb = await supabaseServer();
     const [{ data }, { data: u }] = await Promise.all([
       sb.from('products').select('id,title,mall,price,list_price,photo_path').eq('status', 'live').order('created_at', { ascending: false }).limit(30),
-      sb.auth.getUser(),
+      sb.auth.getClaims(),
     ]);
-    rows = (data as Row[]) || []; signedIn = !!u.user;
+    rows = (data as Row[]) || []; signedIn = !!u?.claims?.sub;
   }
   const photo = (p: string | null) => p ? `${SUPABASE_URL}/storage/v1/object/public/product-photos/${p}` : '';
   return (

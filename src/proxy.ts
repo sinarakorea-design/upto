@@ -17,8 +17,10 @@ export async function proxy(request: NextRequest) {
       },
     },
   });
-  await supabase.auth.getUser();
+  // 로그인 확인은 토큰 서명을 이 서버에서 바로 검증한다(인증 서버 왕복 없음, 만료 직전이면 쿠키만 갱신)
+  await supabase.auth.getClaims();
   return response;
 }
 
-export const config = { matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp)$).*)'] };
+// 로그인 상태를 서버에서 읽는 화면에만 건다(가입·로그인 같은 정적 화면은 그대로 빠르게)
+export const config = { matcher: ['/', '/my/:path*', '/admin/:path*'] };
