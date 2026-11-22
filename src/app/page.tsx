@@ -1,3 +1,4 @@
+import { SUPABASE_URL } from '@/lib/env';
 import Link from 'next/link';
 import { supabaseServer } from '@/lib/supabase/server';
 
@@ -6,7 +7,7 @@ type Row = { id: string; title: string; mall: string; price: number; list_price:
 
 export default async function Home() {
   let rows: Row[] = [], signedIn = false;
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  if (SUPABASE_URL) {
     const sb = await supabaseServer();
     const [{ data }, { data: u }] = await Promise.all([
       sb.from('products').select('id,title,mall,price,list_price,photo_path').eq('status', 'live').order('created_at', { ascending: false }).limit(30),
@@ -14,7 +15,7 @@ export default async function Home() {
     ]);
     rows = (data as Row[]) || []; signedIn = !!u.user;
   }
-  const photo = (p: string | null) => p ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/product-photos/${p}` : '';
+  const photo = (p: string | null) => p ? `${SUPABASE_URL}/storage/v1/object/public/product-photos/${p}` : '';
   return (
     <>
       <header className="hdr"><Link className="wm" href="/"><i aria-hidden />UPTO</Link>

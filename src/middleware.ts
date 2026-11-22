@@ -1,10 +1,11 @@
+import { SUPABASE_URL, SUPABASE_KEY } from '@/lib/env';
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 // 로그인 쿠키를 매 요청마다 새로 고친다(Supabase SSR 권장 방식).
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = SUPABASE_URL, key = SUPABASE_KEY;
   if (!url || !key) return response;
   const supabase = createServerClient(url, key, {
     cookies: {
