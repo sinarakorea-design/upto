@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Logo from '@/components/logo';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useMemo, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/client';
@@ -19,7 +20,7 @@ function Verify() {
   }
   return (
     <>
-      <header className="hdr"><Link className="wm" href="/"><i aria-hidden />UPTO</Link></header>
+      <header className="hdr"><Logo /></header>
       <div className="steps3"><div><b>1</b>정보 입력</div><div className="on"><b>2</b>이메일 인증</div><div><b>3</b>가입 완료</div></div>
       <div className="card">
         <h1 style={{ margin: 0, fontSize: 20 }}>메일함을 확인해 주세요</h1>

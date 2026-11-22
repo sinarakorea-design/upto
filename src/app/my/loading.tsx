@@ -2,7 +2,7 @@
 export default function Loading() {
   return (
     <>
-      <header className="hdr"><span className="wm"><i aria-hidden />UPTO</span></header>
+      <header className="hdr"><span className="wm"><span className="wm-m">▲</span>UPTO</span></header>
       <div className="page-h"><h1>MY</h1><p>불러오는 중…</p></div>
       <div className="card" aria-busy="true">
         <div className="kv"><span>닉네임</span><b>·</b></div>

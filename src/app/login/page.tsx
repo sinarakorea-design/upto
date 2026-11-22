@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Logo from '@/components/logo';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/client';
@@ -27,7 +28,7 @@ function Login() {
   }
   return (
     <>
-      <header className="hdr"><Link className="wm" href="/"><i aria-hidden />UPTO</Link></header>
+      <header className="hdr"><Logo /></header>
       <div className="page-h"><h1>로그인</h1><p>업투 계정으로 로그인해요</p></div>
       <form className="card" onSubmit={submit} noValidate>
         <label className="lab" htmlFor="email">이메일</label>

@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Logo from '@/components/logo';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/client';
@@ -52,7 +53,7 @@ function Signup() {
 
   return (
     <>
-      <header className="hdr"><Link className="wm" href="/"><i aria-hidden />UPTO</Link></header>
+      <header className="hdr"><Logo /></header>
       <div className="hero"><b>업투 회원가입</b><span>이메일 인증까지 1분이면 끝나요</span></div>
       <div className="steps3"><div className="on"><b>1</b>정보 입력</div><div><b>2</b>이메일 인증</div><div><b>3</b>가입 완료</div></div>
       <form className="card" onSubmit={submit} noValidate>

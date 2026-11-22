@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Logo from '@/components/logo';
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase/server';
 import { safeNext, withNext } from '@/lib/next-url';
@@ -14,7 +15,7 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
   const why = { up: 'UP 추천은 회원만 할 수 있어요', wish: '찜은 회원만 할 수 있어요', post: '상품 올리기는 회원만 할 수 있어요' }[sp.from || ''];
   return (
     <>
-      <header className="hdr"><Link className="wm" href="/"><i aria-hidden />UPTO</Link><div className="r"><Link className="sbtn" href={withNext('/login', next)}>로그인</Link></div></header>
+      <header className="hdr"><Logo /><div className="r"><Link className="sbtn" href={withNext('/login', next)}>로그인</Link></div></header>
       {why && <p className="notice">{why}</p>}
       <section className="land">
         <p className="kicker">오늘의 최저가, 업투</p>
