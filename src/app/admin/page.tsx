@@ -23,7 +23,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   const { data: prods } = tab === 'products' ? await sb.from('products').select('id,title,category,mall,price,status,created_at,owner_id').order('created_at', { ascending: false }).limit(100) : { data: [] };
   const nick = (id: string) => members.find((m) => m.id === id)?.nickname || '';
   const { data: sellers } = tab === 'sellers' ? await sb.from('sellers').select('user_id,business_type,display_name,business_no,contact_phone,toss_seller_id,status,created_at').order('created_at', { ascending: false }).limit(200) : { data: [] };
-  const { data: orders } = tab === 'orders' ? await sb.from('orders').select('order_no,amount,status,created_at,buyer_id,seller_id').order('created_at', { ascending: false }).limit(100) : { data: [] };
+  const { data: orders } = tab === 'orders' ? await sb.from('orders').select('order_no,amount,status,created_at,buyer_id,seller_id,shipped_at').order('created_at', { ascending: false }).limit(100) : { data: [] };
   const { data: pays } = tab === 'orders' ? await sb.from('payouts').select('amount,fee,status') : { data: [] };
   const BT: Record<string, string> = { individual: '개인', individual_business: '개인사업자', corporate: '법인' };
   const SS: Record<string, string> = { draft: '심사 대기', review: '심사 중', active: '판매 중', paused: '멈춤' };
@@ -42,7 +42,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
       {tab === 'orders' && (<>
         <div className="kpi"><div><b>{(orders || []).filter((o) => o.status === 'paid').length}</b><span>결제 완료</span></div><div><b>{won((pays || []).filter((x) => x.status === 'scheduled').reduce((a, x) => a + x.amount, 0))}</b><span>정산 예정</span></div><div><b>{won((pays || []).reduce((a, x) => a + x.fee, 0))}</b><span>업투 수수료</span></div></div>
         <div className="card list">{(orders || []).filter((o) => o.status !== 'pending').map((o) => (
-          <div className="row" key={o.order_no}><div className="grow"><b>{won(o.amount)}</b><div className="help">{o.order_no} · 구매 {nick(o.buyer_id)} → 판매 {nick(o.seller_id)} · {o.status} · {new Date(o.created_at).toLocaleString('ko-KR')}</div></div></div>))}
+          <div className="row" key={o.order_no}><div className="grow"><b>{won(o.amount)}</b><div className="help">{o.order_no} · 구매 {nick(o.buyer_id)} → 판매 {nick(o.seller_id)} · {o.status === 'paid' ? (o.shipped_at ? '발송 완료' : '발송 대기') : o.status} · {new Date(o.created_at).toLocaleString('ko-KR')}</div></div></div>))}
           {!(orders || []).some((o) => o.status !== 'pending') && <p className="empty">결제된 주문이 없어요</p>}</div>
         <p className="help">정산(판매자에게 보내기)은 토스페이먼츠 상점관리자의 지급대행 메뉴에서 실행해요. 환불은 토스 상점관리자에서 결제 취소로 해요.</p></>)}
       {tab === 'members' ? (<>

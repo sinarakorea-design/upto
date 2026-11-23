@@ -146,3 +146,28 @@ button.chip[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);font-
 .kpi div span{font-size:12px;color:var(--mute)}
 .in.sid{height:36px;width:140px;font-size:14px;padding:0 10px}
 .seg a{font-size:13px}
+
+.deal{position:relative}
+.stretch{color:inherit;text-decoration:none}
+.stretch::after{content:"";position:absolute;inset:0}
+.deal .foot{margin-top:8px}
+.upb{position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 14px;border-radius:999px;border:0;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);font-family:var(--font-num);font-size:13px;font-weight:700;color:var(--fg2);text-decoration:none;cursor:pointer}
+.upb.on{background:var(--accent-soft);color:var(--accent-text);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.acts2{display:flex;gap:8px;margin-top:12px}
+.rk{position:absolute;left:6px;top:6px;min-width:24px;height:24px;padding:0 6px;border-radius:8px;background:var(--ink);color:var(--on-ink);font:800 13px/24px var(--font-num);font-style:normal;text-align:center}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:20;width:100%;max-width:480px;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:58px;font-size:11px;font-weight:500;color:var(--mute);text-decoration:none}
+.tabbar a[aria-current="page"]{color:var(--fg);font-weight:700}
+.app:has(.tabbar){padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.ft{margin-top:28px;padding-top:16px;border-top:1px solid var(--line2);font-size:12px;color:var(--mute);line-height:1.6}
+.ft p{margin:0 0 6px}
+.ft a{color:var(--fg2)}
+.doc h2{font-size:16px;margin:22px 0 6px}
+.doc p,.doc li{font-size:14px;color:var(--fg2);line-height:1.65}
+.doc ul,.doc ol{padding-left:20px;margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.doc th,.doc td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.doc .draft{padding:10px 14px;border-radius:12px;background:var(--warn-bg,#f6ebd2);color:#8a5200;font-size:13px}
+.sel{height:44px;border-radius:12px;border:1px solid var(--ctl);background:var(--card);padding:0 10px;font-size:15px;width:100%}
+.shipbox{margin-top:8px;padding:10px 12px;border-radius:12px;background:var(--card2);font-size:13px;color:var(--fg2);line-height:1.6;width:100%}
+.row.col{flex-direction:column;align-items:stretch}

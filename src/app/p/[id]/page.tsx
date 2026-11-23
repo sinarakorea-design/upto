@@ -5,6 +5,8 @@ import { supabaseServer } from '@/lib/supabase/server';
 import { catName, off, photoUrl, won } from '@/lib/format';
 import OwnerActions from './owner-actions';
 import SaleToggle from './sale-toggle';
+import UpButton from '@/components/up-button';
+import WishButton from '@/components/wish-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +30,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
   const sellerActive = !!d && canEdit ? (await sb.from('sellers').select('status').eq('user_id', d.owner_id).maybeSingle()).data?.status === 'active' : false;
   if (!d && own) return (<><header className="hdr"><Logo /></header><div className="card"><h1 className="h1s">{own.title}</h1><p className="help">지금 숨김 상태라 다른 사람에게 보이지 않아요.</p>{canEdit && <OwnerActions id={id} status={own.status} />}</div></>);
   const p = d!;
+  const [{ data: upRow }, { data: wishRow }] = uid ? await Promise.all([sb.from('ups').select('product_id').eq('product_id', id).maybeSingle(), sb.from('wishes').select('product_id').eq('product_id', id).maybeSingle()]) : [{ data: null }, { data: null }];
   return (
     <>
       <header className="hdr"><Logo /><div className="r"><Link className="sbtn" href={`/?cat=${p.category}`}>{catName(p.category)}</Link></div></header>
@@ -36,6 +39,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
       <div className="meta" style={{ marginTop: 14 }}><b>{p.mall}</b> · {p.seller}{p.ends_at && <> · <span className="urgent">{new Date(p.ends_at).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })} 마감</span></>}</div>
       <h1 className="dtitle">{p.title}</h1>
       <div><span className="now big">{won(p.price)}</span>{p.list_price > p.price && <><span className="was">{won(p.list_price)}</span><span className="pct">−{off(p.price, p.list_price)}%</span></>}</div>
+      <div className="acts2"><UpButton id={id} count={p.ups ?? 0} on={!!upRow} signedIn={!!uid} own={uid === p.owner_id} next={`/p/${id}`} /><WishButton id={id} on={!!wishRow} signedIn={!!uid} next={`/p/${id}`} /></div>
       <p className="help">가격은 올린 회원이 적은 값이에요. 쇼핑몰에서 최종 가격을 꼭 확인해 주세요.</p>
       {p.on_sale && p.stock !== 0 && uid !== p.owner_id && <Link className="btn" href={`/checkout/${id}`}>구매하기{p.stock != null ? ` · 남은 ${p.stock}개` : ''}</Link>}
       {p.on_sale && p.stock === 0 && <p className="notice">품절됐어요</p>}

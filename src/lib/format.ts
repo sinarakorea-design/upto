@@ -6,7 +6,7 @@ export const CATS: [string, string][] = [['digital', '디지털'], ['food', '식
 export const catName = (k: string) => CATS.find((c) => c[0] === k)?.[1] || k;
 export const MALLS = ['쿠팡', '네이버', '11번가', 'G마켓', 'SSG', '컬리', '무신사', '올리브영', '토스쇼핑'];
 export const POST_COST = 3000;
-export type FeedRow = { id: string; title: string; category: string; mall: string; price: number; list_price: number; link: string | null; photo_path: string | null; ends_at: string | null; created_at: string; owner_id: string; seller: string; on_sale?: boolean; stock?: number | null };
+export type FeedRow = { id: string; title: string; category: string; mall: string; price: number; list_price: number; link: string | null; photo_path: string | null; ends_at: string | null; created_at: string; owner_id: string; seller: string; on_sale?: boolean; stock?: number | null; ups?: number; ups_today?: number };
 // DB 함수가 돌려주는 오류를 사람이 읽는 말로
 export function dbError(m: string | undefined): string {
   const s = m || '';

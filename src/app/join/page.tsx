@@ -25,8 +25,8 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
         <Link className="btn line" href={withNext('/login', next)}>이미 회원이에요 · 로그인</Link>
       </section>
       <section className="perks" aria-label="회원 혜택">
-        <div><b>🔔</b><strong>목표가 알림</strong><span>원하는 가격이 되면 바로 알려 드려요</span></div>
-        <div><b>P</b><strong>포인트 적립</strong><span>가입 5,000P · 활동할수록 더</span></div>
+        <div><b>▲</b><strong>UP 추천 · 찜</strong><span>좋은 딜을 추천하고 찜해 두세요</span></div>
+        <div><b>P</b><strong>포인트 적립</strong><span>가입 5,000P · 매일 출석 100P</span></div>
         <div><b>＋</b><strong>내 딜 올리기</strong><span>승인 회원은 포인트로 업투 룸에 올려요</span></div>
       </section>
       <section className="how" aria-label="가입 순서">
