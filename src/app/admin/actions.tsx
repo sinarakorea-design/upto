@@ -32,3 +32,14 @@ export function ProductActions({ id, status }: { id: string; status: string }) {
     ? <button className="sbtn" disabled={busy} onClick={() => run('set_product_status', { p_id: id, p_status: 'hidden' })}>숨기기</button>
     : <button className="sbtn" disabled={busy} onClick={() => run('set_product_status', { p_id: id, p_status: 'live' })}>보이기</button>}</div>;
 }
+
+export function SellerActions({ id, status, sellerId }: { id: string; status: string; sellerId: string }) {
+  const { busy, run } = useRun(); const [v, setV] = useState(sellerId);
+  return (
+    <div className="acts">
+      {status !== 'active' && <input className="in sid" placeholder="토스 셀러 ID" value={v} onChange={(e) => setV(e.target.value)} />}
+      {status !== 'active' ? <button className="sbtn pri" disabled={busy || !v.trim()} onClick={() => run('admin_set_seller', { p_user: id, p_toss_seller_id: v, p_status: 'active' })}>승인</button>
+        : <button className="sbtn" disabled={busy} onClick={() => run('admin_set_seller', { p_user: id, p_toss_seller_id: sellerId, p_status: 'paused' })}>판매 멈춤</button>}
+    </div>
+  );
+}

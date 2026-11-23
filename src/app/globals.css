@@ -130,3 +130,19 @@ button.chip[aria-pressed="true"]{background:var(--ink);color:var(--on-ink);font-
 .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:58%}
 .go{color:var(--mute);font-size:20px}
 .btn+.btn.line{margin-top:10px}
+
+.hero.bad{background:var(--urgent-bg);color:var(--urgent)}
+.hero.bad span{color:var(--urgent)}
+.qty{display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+.stepper{display:flex;align-items:center;gap:14px}
+.stepper button{width:40px;height:40px;border-radius:12px;border:0;background:var(--chip);font-size:20px;cursor:pointer}
+.stepper button:disabled{opacity:.35}
+.stepper b{font-family:var(--font-num);font-size:18px;min-width:2ch;text-align:center}
+#toss-methods,#toss-agreement{margin-top:12px}
+
+.buy-tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:5px;background:var(--accent-soft);color:var(--accent-text);font-size:11px;font-weight:700}
+.kpi div{padding:12px;border-radius:14px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.kpi div b{display:block;font-family:var(--font-num);font-size:18px}
+.kpi div span{font-size:12px;color:var(--mute)}
+.in.sid{height:36px;width:140px;font-size:14px;padding:0 10px}
+.seg a{font-size:13px}

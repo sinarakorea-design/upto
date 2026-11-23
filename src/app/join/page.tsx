@@ -12,7 +12,7 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
   const sb = await supabaseServer();
   const { data } = await sb.auth.getClaims();
   if (data?.claims?.sub) redirect(next);
-  const why = { up: 'UP 추천은 회원만 할 수 있어요', wish: '찜은 회원만 할 수 있어요', post: '상품 올리기는 회원만 할 수 있어요' }[sp.from || ''];
+  const why = { up: 'UP 추천은 회원만 할 수 있어요', wish: '찜은 회원만 할 수 있어요', post: '상품 올리기는 회원만 할 수 있어요', buy: '구매는 회원만 할 수 있어요' }[sp.from || ''];
   return (
     <>
       <header className="hdr"><Logo /><div className="r"><Link className="sbtn" href={withNext('/login', next)}>로그인</Link></div></header>

@@ -4,6 +4,7 @@ import Logo from '@/components/logo';
 import { supabaseServer } from '@/lib/supabase/server';
 import { catName, off, photoUrl, won } from '@/lib/format';
 import OwnerActions from './owner-actions';
+import SaleToggle from './sale-toggle';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +25,7 @@ export default async function DealPage({ params, searchParams }: { params: Promi
   if (!d && !own) notFound();
   const isAdmin = uid ? (await sb.from('profiles').select('role').eq('id', uid).maybeSingle()).data?.role === 'admin' : false;
   const canEdit = !!uid && (isAdmin || uid === (d?.owner_id || own?.owner_id));
+  const sellerActive = !!d && canEdit ? (await sb.from('sellers').select('status').eq('user_id', d.owner_id).maybeSingle()).data?.status === 'active' : false;
   if (!d && own) return (<><header className="hdr"><Logo /></header><div className="card"><h1 className="h1s">{own.title}</h1><p className="help">지금 숨김 상태라 다른 사람에게 보이지 않아요.</p>{canEdit && <OwnerActions id={id} status={own.status} />}</div></>);
   const p = d!;
   return (
@@ -35,7 +37,10 @@ export default async function DealPage({ params, searchParams }: { params: Promi
       <h1 className="dtitle">{p.title}</h1>
       <div><span className="now big">{won(p.price)}</span>{p.list_price > p.price && <><span className="was">{won(p.list_price)}</span><span className="pct">−{off(p.price, p.list_price)}%</span></>}</div>
       <p className="help">가격은 올린 회원이 적은 값이에요. 쇼핑몰에서 최종 가격을 꼭 확인해 주세요.</p>
-      {p.link ? <a className="btn" href={p.link} target="_blank" rel="noopener noreferrer nofollow ugc">상품 보러 가기</a> : <p className="help">링크가 없는 딜이에요</p>}
+      {p.on_sale && p.stock !== 0 && uid !== p.owner_id && <Link className="btn" href={`/checkout/${id}`}>구매하기{p.stock != null ? ` · 남은 ${p.stock}개` : ''}</Link>}
+      {p.on_sale && p.stock === 0 && <p className="notice">품절됐어요</p>}
+      {p.link ? <a className={'btn' + (p.on_sale ? ' line' : '')} href={p.link} target="_blank" rel="noopener noreferrer nofollow ugc">원래 쇼핑몰에서 보기</a> : !p.on_sale && <p className="help">링크가 없는 딜이에요</p>}
+      {canEdit && sellerActive && <SaleToggle id={id} onSale={!!p.on_sale} stock={p.stock ?? null} />}
       {canEdit && <OwnerActions id={id} status="live" />}
     </>
   );
