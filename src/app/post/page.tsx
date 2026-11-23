@@ -3,6 +3,7 @@ import Logo from '@/components/logo';
 import { supabaseServer } from '@/lib/supabase/server';
 import { POST_COST } from '@/lib/format';
 import PostForm from './post-form';
+import { ensureOwnerAdmin } from '@/lib/owner';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: '딜 올리기' };
@@ -16,6 +17,7 @@ export default async function PostPage() {
     sb.from('profiles').select('nickname,status,role').eq('id', uid).single(),
     sb.from('point_balance').select('balance').eq('user_id', uid).maybeSingle(),
   ]);
+  if (me && await ensureOwnerAdmin(uid, data?.claims?.email, me.role)) { me.role = 'admin'; me.status = 'ok'; }
   const admin = me?.role === 'admin', balance = bal?.balance ?? 0;
   const head = <header className="hdr"><Logo /></header>;
   if (!admin && me?.status === 'blocked') return <>{head}<div className="card"><h1 className="h1s">이용이 멈춘 계정이에요</h1><p className="help">운영자에게 문의해 주세요.</p></div></>;

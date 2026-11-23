@@ -7,6 +7,7 @@ import { POST_COST, won } from '@/lib/format';
 import LogoutButton from './logout';
 import DailyButton from './daily-button';
 import ShipForm from './ship-form';
+import { ensureOwnerAdmin } from '@/lib/owner';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'MY' };
@@ -32,6 +33,7 @@ export default async function MyPage() {
     sb.from('point_ledger').select('id').eq('user_id', uid).eq('reason', 'activity').eq('ref', today).maybeSingle(),
     sb.from('wishes').select('product_id').order('created_at', { ascending: false }).limit(30),
   ]);
+  if (me && await ensureOwnerAdmin(uid, claims.email, me.role)) { me.role = 'admin'; me.status = 'ok'; }
   const orders = (bought as Order[]) || [], sales = (sold as Order[]) || [], wishIds = (wishes || []).map((w) => w.product_id as string);
   const ids = [...new Set([...orders, ...sales].map((o) => o.product_id).concat(wishIds))];
   const titles = new Map<string, { title: string; price: number }>();
