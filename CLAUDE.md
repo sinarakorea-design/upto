@@ -9,3 +9,4 @@
 - 안실장은 손작업을 원하지 않는다: 묻지 말고 알아서 만들고, 꼭 필요한 한 가지만 마지막에 부탁한다. SQL 은 여러 번 실행해도 오류 없게(idempotent) 쓰고 한 번에 하나만 실행하게 한다.
 - 로컬 next 서버는 서버 쪽에서 Supabase 에 못 닿는다(프록시). 서버 렌더 확인은 배포 뒤 https://www.upto.co.kr 로 한다(DNS 는 dns.google 로 조회).
 - 운영 안내: OPERATIONS.md
+- 앱(UP%TO) 디자인 방향·레퍼런스·기획안: design/README.md. 앱은 웹과 다른 크레용 낙서 스타일, 오픈 목표 내년. 대표 계정은 로그인하면 자동으로 운영자가 된다(src/lib/owner.ts).
