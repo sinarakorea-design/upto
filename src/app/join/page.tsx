@@ -20,13 +20,13 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
       <section className="land">
         <p className="kicker">오늘의 최저가, 업투</p>
         <h1>핫딜은 놓치지 않고<br />좋은 딜은 내가 올리고</h1>
-        <p className="lede">가입하면 바로 <b>1,000P</b>를 드려요. 포인트로 내가 찾은 딜을 업투에 올릴 수 있어요.</p>
-        <Link className="btn" href={withNext('/signup', next)}>1분 가입하고 1,000P 받기</Link>
+        <p className="lede">가입하면 바로 <b>5,000P</b>를 드려요. 포인트로 내가 찾은 딜을 업투에 올릴 수 있어요.</p>
+        <Link className="btn" href={withNext('/signup', next)}>1분 가입하고 5,000P 받기</Link>
         <Link className="btn line" href={withNext('/login', next)}>이미 회원이에요 · 로그인</Link>
       </section>
       <section className="perks" aria-label="회원 혜택">
         <div><b>🔔</b><strong>목표가 알림</strong><span>원하는 가격이 되면 바로 알려 드려요</span></div>
-        <div><b>P</b><strong>포인트 적립</strong><span>가입 1,000P · 활동할수록 더</span></div>
+        <div><b>P</b><strong>포인트 적립</strong><span>가입 5,000P · 활동할수록 더</span></div>
         <div><b>＋</b><strong>내 딜 올리기</strong><span>승인 회원은 포인트로 업투 룸에 올려요</span></div>
       </section>
       <section className="how" aria-label="가입 순서">

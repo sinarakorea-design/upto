@@ -11,5 +11,5 @@ export default function WelcomeToast() {
     const t = setTimeout(() => setOn(false), 4000); return () => clearTimeout(t);
   }, []);
   if (!on) return null;
-  return <div className="toast" role="status"><b>가입 완료!</b> 가입 선물 1,000P를 넣어 드렸어요</div>;
+  return <div className="toast" role="status"><b>가입 완료!</b> 가입 선물 5,000P를 넣어 드렸어요</div>;
 }

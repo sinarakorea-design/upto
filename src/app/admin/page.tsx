@@ -39,7 +39,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <ProductActions id={p.id} status={p.status} /></div>))}
           {!(prods || []).length && <p className="empty">올라온 딜이 없어요</p>}</div>
       )}
-      <p className="help" style={{ marginTop: 14 }}>정지하면 그 회원의 딜이 바로 숨겨져요. 포인트 +1,000 은 이벤트·보상용이에요.</p>
+      <p className="help" style={{ marginTop: 14 }}>정지하면 그 회원의 딜이 바로 숨겨져요. 포인트 +3,000(딜 1개 값)은 이벤트·보상용이에요.</p>
     </>
   );
 }

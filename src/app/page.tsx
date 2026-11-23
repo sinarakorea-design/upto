@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ c
         <div className="r">{signedIn ? <><Link className="sbtn" href="/post">＋ 올리기</Link><Link className="sbtn" href="/my">{nick ? `${nick}님` : 'MY'}</Link></> : <Link className="sbtn pri" href={`/login?next=${nx}`}>로그인</Link>}</div></header>
       {!signedIn && (
         <Link className="hero join-hero" href={`/join?next=${nx}`}>
-          <b>가입하고 1,000P 받기</b><span>목표가 알림 · 포인트 · 내 딜 올리기까지, 1분이면 끝나요 →</span>
+          <b>가입하고 5,000P 받기</b><span>목표가 알림 · 포인트 · 내 딜 올리기까지, 1분이면 끝나요 →</span>
         </Link>
       )}
       <nav className="chips" aria-label="카테고리"><Link className="chip" aria-current={cat === 'all' ? 'page' : undefined} href="/">전체</Link>{CATS.map(([k, l]) => <Link key={k} className="chip" aria-current={k === cat ? 'page' : undefined} href={`/?cat=${k}`}>{l}</Link>)}</nav>
@@ -40,7 +40,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ c
             <div><span className="now">{won(r.price)}</span>{r.list_price > r.price && <><span className="was">{won(r.list_price)}</span><span className="pct">−{off(r.price, r.list_price)}%</span></>}</div></div>
         </Link>
       ))}
-      {!signedIn && <Link className="stick" href={`/join?next=${nx}`}>업투 회원 되기 · 1,000P 선물</Link>}
+      {!signedIn && <Link className="stick" href={`/join?next=${nx}`}>업투 회원 되기 · 5,000P 선물</Link>}
     </>
   );
 }

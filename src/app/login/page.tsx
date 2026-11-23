@@ -36,7 +36,7 @@ function Login() {
         <label className="lab" htmlFor="pw">비밀번호</label>
         <input className="in" id="pw" type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} />
         {err && <p className="err" role="alert">{err}</p>}
-        {err && !unconfirmed && !failed && <p className="help">처음이신가요? <Link href={withNext('/join', next)}>1분 가입하고 1,000P 받기</Link></p>}
+        {err && !unconfirmed && !failed && <p className="help">처음이신가요? <Link href={withNext('/join', next)}>1분 가입하고 5,000P 받기</Link></p>}
         {unconfirmed && <button className="sbtn" type="button" onClick={resend} style={{ marginTop: 8 }}>인증 메일 다시 받기</button>}
         <button className="btn" type="submit" disabled={busy || !email || !pw}>{busy ? '로그인 중…' : '로그인'}</button>
       </form>

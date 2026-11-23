@@ -5,7 +5,7 @@ export const photoUrl = (p: string | null | undefined) => (p ? `${SUPABASE_URL}/
 export const CATS: [string, string][] = [['digital', '디지털'], ['food', '식품'], ['fashion', '패션'], ['beauty', '뷰티'], ['living', '생활'], ['baby', '유아'], ['game', '게임'], ['travel', '여행']];
 export const catName = (k: string) => CATS.find((c) => c[0] === k)?.[1] || k;
 export const MALLS = ['쿠팡', '네이버', '11번가', 'G마켓', 'SSG', '컬리', '무신사', '올리브영', '토스쇼핑'];
-export const POST_COST = 500;
+export const POST_COST = 3000;
 export type FeedRow = { id: string; title: string; category: string; mall: string; price: number; list_price: number; link: string | null; photo_path: string | null; ends_at: string | null; created_at: string; owner_id: string; seller: string };
 // DB 함수가 돌려주는 오류를 사람이 읽는 말로
 export function dbError(m: string | undefined): string {

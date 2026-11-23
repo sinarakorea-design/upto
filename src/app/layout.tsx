@@ -3,7 +3,7 @@ import './globals.css';
 import WelcomeToast from './welcome-toast';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://upto-eight.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://upto.co.kr'),
   title: { default: '업투 UPTO · 오늘의 최저가 핫딜', template: '%s · 업투' },
   description: '지금 제일 싼 가격만 모은 핫딜, 업투. 회원이 직접 찾은 딜을 올리고 함께 추천해요.',
   openGraph: { siteName: '업투 UPTO', locale: 'ko_KR', type: 'website', images: ['/og.png'] },

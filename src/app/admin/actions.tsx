@@ -21,7 +21,7 @@ export function MemberActions({ id, status }: { id: string; status: string }) {
       {status !== 'ok' && <button className="sbtn pri" disabled={busy} onClick={() => run('admin_set_member', { p_user: id, p_status: 'ok' })}>승인</button>}
       {status !== 'blocked' && <button className="sbtn" disabled={busy} onClick={() => run('admin_set_member', { p_user: id, p_status: 'blocked' })}>정지</button>}
       {status === 'blocked' && <button className="sbtn" disabled={busy} onClick={() => run('admin_set_member', { p_user: id, p_status: 'wait' })}>정지 풀기</button>}
-      <button className="sbtn" disabled={busy} onClick={() => run('admin_grant_points', { p_user: id, p_delta: 1000, p_note: '운영자 지급' })}>+1,000P</button>
+      <button className="sbtn" disabled={busy} onClick={() => run('admin_grant_points', { p_user: id, p_delta: 3000, p_note: '운영자 지급' })}>+3,000P</button>
     </div>
   );
 }
