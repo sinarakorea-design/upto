@@ -23,7 +23,7 @@ export default async function RankPage() {
       <header className="hdr"><Logo /></header>
       <div className="hero"><b>오늘의 UP Top 50</b><span>최근 24시간 동안 회원들이 가장 많이 추천한 딜 · 1분마다 갱신</span></div>
       {feed.error ? <div className="empty"><b>잠시 불러오지 못했어요</b><Link href="/rank">다시 불러오기</Link></div>
-        : rows.length === 0 ? <div className="empty"><b>아직 순위가 없어요</b><Link href="/">피드에서 마음에 드는 딜에 ▲ UP 을 눌러 보세요</Link></div>
+        : rows.length === 0 ? <div className="empty"><b>아직 올라온 딜이 없어요</b>딜이 하나라도 올라오면 추천 수 순서로 여기에 바로 보여요<br /><Link href={uid ? '/post' : '/join?next=%2Fpost&from=post'}>첫 딜 올리고 1위 하기</Link></div>
         : rows.map((r, i) => <DealCard key={r.id} r={r} rank={i + 1} upOn={ups.has(r.id)} uid={uid} next="/rank" />)}
       <Tabs current="rank" />
     </>
