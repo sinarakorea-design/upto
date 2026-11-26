@@ -23,4 +23,5 @@ export async function proxy(request: NextRequest) {
 }
 
 // 로그인 상태를 서버에서 읽는 화면에만 건다(가입·로그인 같은 정적 화면은 그대로 빠르게)
-export const config = { matcher: ['/', '/join', '/my/:path*', '/admin/:path*'] };
+// 정적 파일을 뺀 모든 화면에서 로그인 쿠키를 갱신한다(만료 뒤 로그아웃처럼 보이는 문제 방지)
+export const config = { matcher: ['/((?!_next/static|_next/image|favicon.ico|icon|apple-icon|manifest.webmanifest|robots.txt|og.png).*)'] };
