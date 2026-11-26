@@ -159,6 +159,10 @@ npm run build
 - DB 변경: `supabase/migrations/0007_…sql` 작성 → 로컬 Postgres 로 시험 → Supabase SQL Editor 에서 실행. 실행 순서·결과를 커밋 메시지에 남긴다
 - 클라우드 개발 환경에서는 로컬 next 서버가 Supabase 서버 측에 닿지 않을 수 있다(프록시). 그 경우 배포 뒤 https://www.upto.co.kr 로 확인
 
-## 13. 이 압축 파일에서 뺀 것
-- 데모 시절 1장 기획안, 데모 버전(별도 아티팩트), 앱(UP%TO, 크레용 낙서 스타일) 별도 기획안과 레퍼런스(`design/` 폴더) — 웹 서비스와 별개 프로젝트
-- `.env.local`, `node_modules`, `.next` (비밀 값·빌드 산출물)
+## 13. 압축 파일 구성
+- `upto/` : 이 저장소 전체(실서비스 소스·DB·문서)
+- `참고자료/업투_아이디어_기획서.md` : 데모 시절(2026-11-10) 서비스 기획서. 원본 https://claude.ai/artifact/8HEfL8pRKSMKd3EbF8917d (도식 1개는 내보내기에서 빠짐)
+- `참고자료/데모/index.html`, `admin.html` : 데모 버전(단일 HTML). 원본 https://claude.ai/artifact/65D1midP7SSFVk7SbZ13W3
+  - 데모는 claude.ai 아티팩트 런타임(공유 DB·회원 정보)을 쓰므로 일반 브라우저에서 열면 공유 기능 없이 더미 데이터로만 돈다
+  - 실서비스는 데모의 화면·흐름을 참고해 새로 만든 것이고 코드는 공유하지 않는다. 데모의 가격 추이·최저가 알림·미니게임은 실서비스에 아직 없다
+- 뺀 것: 앱(UP%TO, 크레용 낙서 스타일) 별도 기획안과 레퍼런스(`design/` 폴더), `.env.local`·`node_modules`·`.next`
